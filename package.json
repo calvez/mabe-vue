@@ -22,12 +22,15 @@
   ],
   "homepage": "https://wp.netlify.com",
   "dependencies": {
+    "i": "^0.3.6",
     "vue": "^2.6.6",
     "vue-analytics": "^5.16.4",
     "vue-router": "^3.0.6",
+    "vuetify": "^1.5.14",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",

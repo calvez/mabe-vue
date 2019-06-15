@@ -48,6 +48,17 @@ export default {
           });
         }
 
+        if (path.startsWith("/tag") && !path.includes("slug")) {
+          data.data.forEach(post => {
+            this.$store.commit("cache/saveRequest", {
+              path: `/mabe_tagok?slug=${post.slug}`,
+              data: {
+                data: [post]
+              }
+            });
+          });
+        }
+
         return resolve(data);
       });
     }

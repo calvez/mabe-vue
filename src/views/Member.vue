@@ -6,6 +6,7 @@
       <header>
         <img v-if="featured_image" :src="featured_image" />
         <h1 v-html="title"></h1>
+
         <ul>
           <li>
             <span>Published on {{ date }}</span>
@@ -17,18 +18,8 @@
           </li>
         </ul>
       </header>
+
       <PostBody :content="content"></PostBody>
-      <template>
-        <v-parallax
-          dark
-          src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-        >
-          <v-layout align-center column justify-center>
-            <h1 class="display-2 font-weight-thin mb-3">Vuetify.js</h1>
-            <h4 class="subheading">Build your application today!</h4>
-          </v-layout>
-        </v-parallax>
-      </template>
       <template>
         <v-layout>
           <v-flex xs12 sm6 offset-sm3>
@@ -53,87 +44,6 @@
           </v-flex>
         </v-layout>
       </template>
-
-      <template>
-        <div class="text-xs-center">
-          <v-rating v-model="rating"></v-rating>
-        </div>
-      </template>
-
-      <template>
-        <v-layout align-center justify-space-around>
-          <v-icon>fas fa-lock</v-icon>
-
-          <v-icon>fas fa-search</v-icon>
-
-          <v-icon>fas fa-list</v-icon>
-
-          <v-icon>fas fa-edit</v-icon>
-
-          <v-icon>fas fa-tachometer-alt</v-icon>
-
-          <v-icon>fas fa-circle-notch fa-spin</v-icon>
-        </v-layout>
-      </template>
-
-      <template>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="desserts"
-          :pagination.sync="pagination"
-          select-all
-          item-key="name"
-          class="elevation-1"
-        >
-          <template v-slot:headers="props">
-            <tr>
-              <th>
-                <v-checkbox
-                  :input-value="props.all"
-                  :indeterminate="props.indeterminate"
-                  primary
-                  hide-details
-                  @click.stop="toggleAll"
-                ></v-checkbox>
-              </th>
-              <th
-                v-for="header in props.headers"
-                :key="header.text"
-                :class="[
-                  'column sortable',
-                  pagination.descending ? 'desc' : 'asc',
-                  header.value === pagination.sortBy ? 'active' : ''
-                ]"
-                @click="changeSort(header.value)"
-              >
-                <v-icon small>fas fa-up</v-icon>
-                {{ header.text }}
-              </th>
-            </tr>
-          </template>
-          <template v-slot:items="props">
-            <tr
-              :active="props.selected"
-              @click="props.selected = !props.selected"
-            >
-              <td>
-                <v-checkbox
-                  :input-value="props.selected"
-                  primary
-                  hide-details
-                ></v-checkbox>
-              </td>
-              <td>{{ props.item.name }}</td>
-              <td class="text-xs-right">{{ props.item.calories }}</td>
-              <td class="text-xs-right">{{ props.item.fat }}</td>
-              <td class="text-xs-right">{{ props.item.carbs }}</td>
-              <td class="text-xs-right">{{ props.item.protein }}</td>
-              <td class="text-xs-right">{{ props.item.iron }}</td>
-            </tr>
-          </template>
-        </v-data-table>
-      </template>
     </article>
   </div>
 </template>
@@ -145,7 +55,7 @@ import ajax from "../mixins/ajax";
 import PostBody from "../components/PostBody";
 
 export default {
-  name: "Post",
+  name: "Member",
 
   mixins: [utils, ajax],
 
@@ -177,7 +87,9 @@ export default {
         let response;
 
         try {
-          response = await this.get(`/posts?slug=${this.$route.params.slug}`);
+          response = await this.get(
+            `/mabe_tagok?slug=${this.$route.params.slug}`
+          );
         } catch (error) {
           this.$router.push({ name: "four-o-four" });
           return;
@@ -200,6 +112,18 @@ export default {
       }
 
       return response.data.media_details.sizes["medium"].source_url;
+    },
+    toggleAll() {
+      if (this.selected.length) this.selected = [];
+      else this.selected = this.desserts.slice();
+    },
+    changeSort(column) {
+      if (this.pagination.sortBy === column) {
+        this.pagination.descending = !this.pagination.descending;
+      } else {
+        this.pagination.sortBy = column;
+        this.pagination.descending = false;
+      }
     }
   },
 

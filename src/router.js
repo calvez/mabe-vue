@@ -3,6 +3,10 @@ import VueRouter from "vue-router";
 import Feed from "./views/Feed";
 import FourOFour from "./views/FourOFour";
 import Post from "./views/Post";
+
+import Member from "./views/Member";
+import Members from "./views/Post";
+
 import bus from "./bus";
 
 Vue.use(VueRouter);
@@ -23,6 +27,17 @@ const routes = [
     path: "/posts/:slug",
     component: Post
   },
+  {
+    name: "tag",
+    path: "/tagok/:slug",
+    component: Member
+  },
+  {
+    name: "tagok",
+    path: "/tagok",
+    component: Members
+  },
+
   {
     name: "page",
     path: "/page/:page",
