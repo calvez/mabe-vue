@@ -22,7 +22,7 @@
   ],
   "homepage": "https://wp.netlify.com",
   "dependencies": {
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "vue": "^2.6.6",
     "vue-analytics": "^5.16.4",
     "vue-router": "^3.0.6",
